@@ -12,3 +12,13 @@ const ClientType = new GraphQLObjectType({
         phone: {type: GraphQLString},
     })
 })
+
+const RootQuery = new GraphQLObjectType({
+    name: 'RootQueryType',
+    fields: {
+        client: {
+            type: ClientType,
+            args: {id: {type: GraphQLID}}
+        }
+    }
+})
