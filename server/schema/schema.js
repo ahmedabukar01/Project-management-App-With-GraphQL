@@ -5,13 +5,16 @@ const {GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLScalar
 // project Type
 const ProjectType = new GraphQLObjectType({
     name: 'Project',
-    fields: {
+    fields: () => ({
         id: {type: GraphQLID},
         clientId: {type: GraphQLID},
         name: {type: GraphQLString},
         description: {type: GraphQLString},
-        status: {type: GraphQLString}
-    }
+        status: {type: GraphQLString},
+        client: {
+            type: ClientType,
+        }
+    })
 })
 // client type
 const ClientType = new GraphQLObjectType({
