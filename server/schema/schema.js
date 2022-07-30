@@ -4,6 +4,7 @@ const Client = require('../models/Client');
 const Project = require('../models/Project');
 
 const {GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLScalarType, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLEnumType} = require('graphql');
+const { set } = require('mongoose');
 
 // project Type
 const ProjectType = new GraphQLObjectType({
@@ -167,7 +168,14 @@ const mutation = new GraphQLObjectType({
 
             },
             resolve(parent,args){
-                
+                return Project.findByIdAndUpdate(args.id,
+                    {
+                        $set:{
+                        name: args.name,
+                        description: args.description,
+                        status: args.status
+                        }
+                }, {new: true})
             }
         }
 
