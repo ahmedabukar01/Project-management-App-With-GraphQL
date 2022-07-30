@@ -1,3 +1,4 @@
+
 // const {projects, clients} = require('../sampleData')
 const Client = require('../models/Client');
 const Project = require('../models/Project');
@@ -142,6 +143,31 @@ const mutation = new GraphQLObjectType({
             },
             resolve(parent,args){
                 return Project.findByIdAndRemove(args.id)
+            }
+        },
+
+        // Update Project
+        updateProject: {
+            name: "updateProject",
+            type: ProjectType,
+            args:{
+                id: {type: GraphQLNonNull(GraphQLID)},
+                name: {type: GraphQLString},
+                description: {type: GraphQLString},
+                status: {
+                    type: new GraphQLEnumType({
+                        name: 'ProjectStatusUpdate',
+                        values: {
+                            new: {value: 'Not Started'},
+                            progress: {value: 'in Progress'},
+                            completed: {value: 'Completed'},
+                        }
+                    })
+                }
+
+            },
+            resolve(parent,args){
+                
             }
         }
 
