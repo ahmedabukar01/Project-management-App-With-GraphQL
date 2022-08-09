@@ -21,4 +21,3 @@ app.listen(port, () =>{
     console.log(`server is running at port ${port}`)
 })
 
-// testing if somethings work
