@@ -21,6 +21,7 @@ const ProjectType = new GraphQLObjectType({
                 return Client.findById(parent.clientId)
             }
         }
+        
     })
 })
 // client type
