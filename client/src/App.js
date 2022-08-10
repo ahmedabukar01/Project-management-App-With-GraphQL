@@ -1,9 +1,14 @@
+import Header from "./Components/Header";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello React Developers</h1>
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <h1>Hello React Developers</h1>
+      </div>
+    </>
   );
 }
 
