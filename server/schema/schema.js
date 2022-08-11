@@ -79,7 +79,7 @@ const mutation = new GraphQLObjectType({
             args: {
                 name: {type: GraphQLNonNull(GraphQLString)},
                 email: {type: GraphQLNonNull(GraphQLString)},
-                phone: {type: GraphQLNonNull(GraphQLInt)},
+                phone: {type: GraphQLNonNull(GraphQLString)},
             },
             resolve(parent,args){
                 // return Client.create(args.name, args.email, args.phone);
