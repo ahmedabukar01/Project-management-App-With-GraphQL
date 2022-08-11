@@ -30,9 +30,9 @@ const Clients = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(client=>{
+                    {data.clients.map(client=>(
                         <ClientRow key={client.id} client={client} />
-                    })}
+                    ))}
                 </tbody>
             </table>
         )}
