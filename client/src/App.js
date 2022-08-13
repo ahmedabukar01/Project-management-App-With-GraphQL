@@ -2,6 +2,7 @@ import Header from "./Components/Header";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client'
 import Clients from "./Components/Clients";
+import AddClientModel from "./Components/AddClientModel";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -33,6 +34,7 @@ function App() {
     <ApolloProvider client={client}>
       <Header />
       <div className="container">
+        <AddClientModel />
         <Clients />
       </div>
       </ApolloProvider>
