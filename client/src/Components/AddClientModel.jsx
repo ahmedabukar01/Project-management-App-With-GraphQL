@@ -1,7 +1,11 @@
 import {useState} from 'react'
 import { FaUser } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
+import {ADD_CLIENT} from '../mutations/clientMutations'
+import {GET_CLIENTS} from '../queries/clientQueries'
+
 import {Button, Modal, Form} from 'react-bootstrap';
+
 
 const AddClientModel = () => {
     const [show, setShow] = useState(false);
@@ -14,10 +18,30 @@ const AddClientModel = () => {
     const [email, setEmail] = useState()
     const [phone, setPhone] = useState()
 
+    // mutations
+    const [addClient] = useMutation(ADD_CLIENT,{
+      variables: {name, email, phone},
+      update(cache, {data: {addClient}}){
+        const {clients} = cache.readQuery({query: GET_CLIENTS})
+
+        cache.writeQuery({
+          query: GET_CLIENTS,
+          data: { clients: [...clients, addClient]}
+        })
+      }
+    })
     // submit function
     const onSubmit = (e) =>{
       e.preventDefault();
-      console.log(name, email, phone)
+      if(name === '' || email === '' || phone === ''){
+        return alert('Please fill in all fields')
+      }
+
+      addClient(name, email,phone);
+
+      setName('');
+      setEmail('');
+      setPhone('');
     }
   
     return (
@@ -44,7 +68,7 @@ const AddClientModel = () => {
               <Form.Group className="mb-3">
                 <Form.Control type='text' placeholder='Phone' value={phone} onChange={(e)=> setPhone(e.target.value)}/>
               </Form.Group>
-              <Button type='submit' variant='primary' className="btn" data-bs-dismiss="modal">Submit</Button>
+              <Button type='submit' variant='primary' className="btn" onClick={handleClose}>Submit</Button>
             </Form>
           </Modal.Body>
         </Modal>
