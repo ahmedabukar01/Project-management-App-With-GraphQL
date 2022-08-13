@@ -23,7 +23,9 @@ const AddClientModel = () => {
           <Modal.Header closeButton>
             <Modal.Title>Add Client</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
@@ -33,7 +35,7 @@ const AddClientModel = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-      </>
+      </>  
     )
 }
 
