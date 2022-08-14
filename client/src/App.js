@@ -1,9 +1,11 @@
 import Header from "./Components/Header";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Clients from "./Components/Clients";
 import AddClientModel from "./Components/AddClientModel";
 import Projects from "./Components/Projects";
+import NotFound from "./pages/NotFound";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -34,11 +36,23 @@ function App() {
     <>
     <ApolloProvider client={client}>
       <Header />
-      <div className="container">
-        <AddClientModel />
-        <Projects />
-        <Clients />
-      </div>
+      <Router>
+        <div className="container">
+          <Routes>
+            <Route path="/" element={
+              <>
+                  <div className="d-flex gap-3 mb-4">
+                  <AddClientModel />
+                  </div>
+                  <Projects />
+                  <hr />
+                  <Clients />
+              </>
+            }/>
+            <Route path="*" element={<NotFound />}/>
+          </Routes>
+        </div>
+      </Router>
       </ApolloProvider>
     </>
   );
