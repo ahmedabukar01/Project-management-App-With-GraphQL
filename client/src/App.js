@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Clients from "./Components/Clients";
 import AddClientModel from "./Components/AddClientModel";
 import Projects from "./Components/Projects";
+import Project from "./pages/Project";
 import NotFound from "./pages/NotFound";
 
 const cache = new InMemoryCache({
@@ -49,6 +50,7 @@ function App() {
                   <Clients />
               </>
             }/>
+            <Route path="projects/:id" element={<Project />}/>
             <Route path="*" element={<NotFound />}/>
           </Routes>
         </div>
