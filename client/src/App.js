@@ -4,6 +4,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Clients from "./Components/Clients";
 import AddClientModel from "./Components/AddClientModel";
+import AddProjectModal from './Components/AddProjectModal'
 import Projects from "./Components/Projects";
 import Project from "./pages/Project";
 import NotFound from "./pages/NotFound";
@@ -44,6 +45,7 @@ function App() {
               <>
                   <div className="d-flex gap-3 mb-4">
                   <AddClientModel />
+                  <AddProjectModal />
                   </div>
                   <Projects />
                   <hr />

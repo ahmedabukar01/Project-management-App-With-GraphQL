@@ -4,7 +4,6 @@ const Client = require('../models/Client');
 const Project = require('../models/Project');
 
 const {GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLScalarType, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLEnumType} = require('graphql');
-const { set } = require('mongoose');
 
 // project Type
 const ProjectType = new GraphQLObjectType({
