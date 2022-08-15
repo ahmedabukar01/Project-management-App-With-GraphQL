@@ -20,10 +20,7 @@ const AddClientModel = () => {
     const [status, setStatus] = useState('new')
 
     // get clients for select
-    const [loading, error, data] = useQuery(GET_CLIENTS);
-    if(!loading && !error){
-        
-    }
+    const {loading, error, data} = useQuery(GET_CLIENTS);
 
     // submit function
     const onSubmit = (e) =>{
@@ -38,9 +35,13 @@ const AddClientModel = () => {
       setClientId('')
     }
   
+    if(loading) return null;
+    if(error) return 'something is wrong'
     return (
       <>
-        <Button variant="secondary" onClick={handleShow} >
+      {!loading && !error && (
+        <>
+         <Button variant="secondary" onClick={handleShow} >
           <div className="d-flex align-items-center">
             <FaList className='icon'/>
             <div>Add Project</div>
@@ -65,11 +66,22 @@ const AddClientModel = () => {
                     <option value="progress">In Progress</option>
                     <option value="completed">Completed</option>
                 </Form.Select>
+                <Form.Group>
+                    <Form.Select value={clientId} onChange={(e)=> setClientId(e.target.value)}>
+                        <option value=''>Select client</option>
+                        {data.clients.map(client=>(
+                            <option value={client.id}>{client.name}</option>
+                        ))}
+                    </Form.Select>
+                </Form.Group>
               </Form.Group>
               <Button type='submit' variant='primary' className="btn" onClick={handleClose}>Submit</Button>
             </Form>
           </Modal.Body>
         </Modal>
+        </>
+      )}
+       
       </>  
     )
 }
