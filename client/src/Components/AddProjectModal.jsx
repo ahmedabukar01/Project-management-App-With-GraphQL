@@ -19,6 +19,12 @@ const AddClientModel = () => {
     const [clientId, setClientId] = useState()
     const [status, setStatus] = useState('new')
 
+    // get clients for select
+    const [loading, error, data] = useQuery(GET_CLIENTS);
+    if(!loading && !error){
+        
+    }
+
     // submit function
     const onSubmit = (e) =>{
       e.preventDefault();
