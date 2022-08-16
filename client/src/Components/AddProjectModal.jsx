@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import { FaList } from 'react-icons/fa'
 import { useMutation, useQuery } from '@apollo/client'
-import {ADD_CLIENT} from '../mutations/clientMutations'
+import {ADD_PROJECT} from '../mutations/projectMutation'
+import {GET_PROJECTS} from '../queries/projects'
 import {GET_CLIENTS} from '../queries/clientQueries'
 
 import {Button, Modal, Form} from 'react-bootstrap';
@@ -14,10 +15,23 @@ const AddClientModel = () => {
     const handleShow = () => setShow(true);
 
     // form useState
-    const [name, setName] = useState()
+    const [name, setName] = useState('')
     const [description, setDescription] = useState()
     const [clientId, setClientId] = useState()
     const [status, setStatus] = useState('new')
+
+    // adding the project
+    const [addProject] = useMutation(ADD_PROJECT,{
+      variables: {name, description, clientId, status},
+      update(cache, {data: {addProject}}){
+        const {projects} = cache.readQuery({query: GET_PROJECTS})
+
+        cache.writeQuery({
+          query: GET_PROJECTS,
+          data: {projects: projects.concat([addProject]) }
+        })
+      }
+    })
 
     // get clients for select
     const {loading, error, data} = useQuery(GET_CLIENTS);
@@ -28,6 +42,8 @@ const AddClientModel = () => {
       if(name === '' || description === '' || status === '' || clientId === ''){
         return alert('Please fill in all fields')
       }
+
+      addProject(name, description, clientId, status);
 
       setName('');
       setDescription('');
@@ -70,7 +86,7 @@ const AddClientModel = () => {
                     <Form.Select value={clientId} onChange={(e)=> setClientId(e.target.value)}>
                         <option value=''>Select client</option>
                         {data.clients.map(client=>(
-                            <option value={client.id}>{client.name}</option>
+                            <option key={client.id} value={client.id}>{client.name}</option>
                         ))}
                     </Form.Select>
                 </Form.Group>
