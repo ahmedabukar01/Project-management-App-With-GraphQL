@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import Spinner from "../Components/Spinner";
 import ClientInfo from "../Components/ClientInfo";
 import DeleteButton from "../Components/DeleteButton";
+import UpdateProject from "../Components/UpdateProject";
 
 
 const Project = () => {
@@ -26,7 +27,7 @@ const Project = () => {
             <p className="lead">{data.project.status}</p>
 
             <ClientInfo client={data.project.client}/>
-
+            <UpdateProject project={data.project}/>
             <DeleteButton projectId={data.project.id}/>
           </div>
         )}
